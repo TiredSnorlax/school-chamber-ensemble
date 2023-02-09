@@ -1,5 +1,7 @@
 <script lang="ts">
   import AboutPage from "$lib/components/pages/AboutPage.svelte";
+  import GalleryPage from "$lib/components/pages/GalleryPage.svelte";
+  import TrainingPage from "$lib/components/pages/TrainingPage.svelte";
   import { onMount } from "svelte";
   import Page from "../lib/components/Page.svelte";
   import FirstPage from "../lib/components/pages/FirstPage.svelte";
@@ -19,15 +21,14 @@
 <svelte:window on:scroll={onScroll} />
 
 <div class="page">
-  <FirstPage {scroll} { pageHeight} />
+  <FirstPage {scroll} {pageHeight} />
   <Page>
     <p>Page 2</p>
   </Page>
-  <AboutPage {scroll} { pageHeight} />
+  <AboutPage {scroll} {pageHeight} />
   <Page />
-  <Page />
-  <Page />
-  <Page />
+  <TrainingPage {scroll} {pageHeight} />
+  <GalleryPage />
 </div>
 
 <style>

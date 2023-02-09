@@ -4,10 +4,12 @@
 
   export let scroll: number;
   export let pageHeight: number;
+
+  let offset = pageHeight * 3.5;
 </script>
 
 <Page>
-  {#if scroll > pageHeight}
+  {#if scroll > offset}
     <div class="popup" transition:scale>
       <p>
         Every Wednesday morning, from 7.45 to 10.45am, a handful of individuals
@@ -41,6 +43,5 @@
 
     color: white;
     font-size: 1.2rem;
-
   }
 </style>

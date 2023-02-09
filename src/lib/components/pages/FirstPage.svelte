@@ -6,53 +6,60 @@
   export let scroll: number;
   export let pageHeight: number;
 
-  let redEle: HTMLDivElement;
-  let greenEle: HTMLDivElement;
-  let blueEle: HTMLDivElement;
+  let firstEle: HTMLDivElement;
+  let secondEle: HTMLDivElement;
+  let thirdEle: HTMLDivElement;
+  //
+  let firstVisible = false;
+  let secondVisible = false;
+  let thirdVisible = false;
 
-  let redVisible = false;
-  let greenVisible = false;
-  let blueVisible = false;
-
+  let fade = false;
+  //
   let showImg = false;
 
   const handleScroll = (scroll: number) => {
-    if (!redEle || !greenEle || !blueEle) return;
+    if (!firstEle || !secondEle || !thirdEle) return;
 
-    let redScroll = -scroll * 0.5;
-    if (redScroll + pageHeight <= 50) {
-      redVisible = true;
-      redEle.style.top = -(pageHeight - 50) + "px";
+    if (scroll > pageHeight && pageHeight > 0) {
+      fade = true;
     } else {
-      redVisible = false;
-      redEle.style.top = redScroll + "px";
+      fade = false;
+    }
+
+    let redScroll = -scroll * 0.6;
+    if (redScroll + pageHeight <= 70) {
+      firstVisible = true;
+      firstEle.style.top = -(pageHeight - 70) + "px";
+    } else {
+      firstVisible = false;
+      firstEle.style.top = redScroll + "px";
     }
 
     if (scroll > pageHeight * 1) {
-      let greenScroll = -(scroll - pageHeight) * 0.5;
-      if (greenScroll + pageHeight <= 60) {
-        greenVisible = true;
-        greenEle.style.top = -(pageHeight - 60) + "px";
+      let greenScroll = -(scroll - pageHeight * 1) * 0.4;
+      if (greenScroll + pageHeight <= 70) {
+        secondVisible = true;
+        secondEle.style.top = -(pageHeight - 70) + "px";
       } else {
-        greenVisible = false;
-        greenEle.style.top = greenScroll + "px";
+        secondVisible = false;
+        secondEle.style.top = greenScroll + "px";
       }
     } else {
-      greenEle.style.top = "0px";
+      secondEle.style.top = "0px";
     }
 
     if (scroll > pageHeight * 2) {
-      let blueScroll = -(scroll - pageHeight * 2) * 0.5;
-      console.log(pageHeight + blueScroll);
+      let blueScroll = -(scroll - pageHeight * 2) * 0.3;
       if (blueScroll + pageHeight <= 70) {
-        blueVisible = true;
-        blueEle.style.top = -(pageHeight - 70) + "px";
+        thirdVisible = true;
+        thirdEle.style.top = -(pageHeight - 70) + "px";
       } else {
-        blueVisible = false;
-        blueEle.style.top = blueScroll + "px";
+        thirdVisible = false;
+        thirdEle.style.top = blueScroll + "px";
       }
     } else {
-      blueEle.style.top = "0px";
+      thirdEle.style.top = "0px";
     }
   };
 
@@ -68,8 +75,8 @@
 </script>
 
 <Page>
-  <div class="top">
-    <div id="red" bind:this={redEle}>
+  <div class="top" class:fade>
+    <div id="red" bind:this={firstEle}>
       {#if showImg}
         <img
           transition:fly={{ x: window.innerHeight / 2, y: 0 }}
@@ -78,20 +85,21 @@
           alt=""
         />
       {/if}
-      <p class:show={redVisible}>About</p>
+      <p class:show={firstVisible}>About</p>
     </div>
-    <div id="green" bind:this={greenEle}>
+    <div id="green" bind:this={secondEle}>
       {#if showImg}
-        <img
+        <div
+          class="logo"
           transition:fly={{ x: window.innerHeight / 2, y: 0, delay: 100 }}
-          class="first-img"
-          src="./Violin.png"
-          alt=""
-        />
+        >
+          <img class="second-img" src="./violin-clipart.jpg" alt="" />
+          <p class="logo-text">RI Chamber Ensemble</p>
+        </div>
       {/if}
-      <p class:show={greenVisible}>Training</p>
+      <p class:show={secondVisible}>Training</p>
     </div>
-    <div id="blue" bind:this={blueEle}>
+    <div id="blue" bind:this={thirdEle}>
       {#if showImg}
         <img
           transition:fly={{ x: window.innerHeight / 2, y: 0, delay: 200 }}
@@ -100,7 +108,7 @@
           alt=""
         />
       {/if}
-      <p class:show={blueVisible}>Gallery</p>
+      <p class:show={thirdVisible}>Gallery</p>
     </div>
   </div>
 </Page>
@@ -111,6 +119,10 @@
     z-index: -1;
 
     position: relative;
+  }
+
+  .top.fade > div {
+    filter: brightness(75%);
   }
 
   .top > div {
@@ -126,6 +138,7 @@
     padding: 1rem;
 
     position: fixed;
+    transition: filter 0.3s;
   }
 
   .top > div:first-child {
@@ -148,6 +161,8 @@
     bottom: 1rem;
 
     color: white;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+      1px 1px 0 #000;
     font-size: 1.5rem;
     opacity: 0;
 
@@ -160,5 +175,19 @@
 
   .first-img {
     max-width: 300px;
+  }
+
+  .second-img {
+    max-width: 300px;
+    border-radius: 50%;
+  }
+
+  .logo .logo-text {
+    position: relative;
+    opacity: 1;
+
+    font-size: 2rem;
+    padding-top: 1rem;
+    text-align: center;
   }
 </style>
