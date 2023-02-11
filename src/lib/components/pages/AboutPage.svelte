@@ -23,7 +23,7 @@
     </div>
   {/if}
 
-  {#if scroll > offset + 300}
+  {#if scroll > offset + 400}
     <div class="popup bottom" transition:fade>
       <img src="./cat.png" alt="" transition:fly={{ x: -window.innerHeight }} />
       <div>
@@ -39,6 +39,23 @@
       </div>
     </div>
   {/if}
+
+  {#if scroll > offset + 800}
+    <div class="popup top" transition:fade>
+      <div>
+        <h1>Title</h1>
+        Every Wednesday morning, from 7.45 to 10.45am, a handful of individuals convene
+        at the Indoor Sports Hall for CCA. However, they do not belong to a sports
+        CCA: the only exercise they get is carrying their instruments to school and
+        playing them during CCA. What kind of bizarre, eccentric CCA is this? This
+        is, of course, Chamber Ensemble! Our CCA is housed in the humble (and perhaps
+        small) Chamber Room located in a corner of the ISH. Despite its modest size,
+        the Chamber Room is home to the memories of generations of musicians. Our
+        conductor, Mr Lin, was also once a starry-eyed student at the Chamber Ensemble.
+      </div>
+      <img src="./cat.png" alt="" transition:fly={{ x: window.innerHeight }} />
+    </div>
+  {/if}
 </div>
 
 <style>
@@ -48,13 +65,14 @@
     justify-content: flex-start;
     align-items: center;
 
-    height: 100vh;
+    height: 150vh;
     margin-top: 100vh;
   }
 
   .popup {
     margin-top: 5rem;
     height: 400px;
+    max-width: 1500px;
 
     padding: 1rem;
 

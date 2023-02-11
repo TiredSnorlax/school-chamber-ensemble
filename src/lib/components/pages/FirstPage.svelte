@@ -30,9 +30,9 @@
     }
 
     let redScroll = -scroll * 0.6;
-    if (redScroll + pageHeight <= 70) {
+    if (redScroll + pageHeight <= 60) {
       firstVisible = true;
-      firstEle.style.top = -(pageHeight - 70) + "px";
+      firstEle.style.top = -(pageHeight - 60) + "px";
     } else {
       firstVisible = false;
       firstEle.style.top = redScroll + "px";
@@ -40,9 +40,9 @@
 
     if (scroll > pageHeight * 1) {
       let greenScroll = -(scroll - pageHeight * 1) * 0.4;
-      if (greenScroll + pageHeight <= 70) {
+      if (greenScroll + pageHeight <= 60) {
         secondVisible = true;
-        secondEle.style.top = -(pageHeight - 70) + "px";
+        secondEle.style.top = -(pageHeight - 60) + "px";
       } else {
         secondVisible = false;
         secondEle.style.top = greenScroll + "px";
@@ -53,9 +53,9 @@
 
     if (scroll > pageHeight * 2) {
       let blueScroll = -(scroll - pageHeight * 2) * 0.3;
-      if (blueScroll + pageHeight <= 70) {
+      if (blueScroll + pageHeight <= 60) {
         thirdVisible = true;
-        thirdEle.style.top = -(pageHeight - 70) + "px";
+        thirdEle.style.top = -(pageHeight - 60) + "px";
       } else {
         thirdVisible = false;
         thirdEle.style.top = blueScroll + "px";

@@ -1,4 +1,5 @@
 <script lang="ts">
+  import AudioPlayer from "$lib/components/AudioPlayer.svelte";
   import AboutPage from "$lib/components/pages/AboutPage.svelte";
   import ContactPage from "$lib/components/pages/ContactPage.svelte";
   import GalleryPage from "$lib/components/pages/GalleryPage.svelte";
@@ -39,6 +40,8 @@
   <div bind:this={galleryPlaceholder} />
   <GalleryPage />
   <ContactPage />
+
+  <AudioPlayer {scroll} />
 </div>
 
 <style>

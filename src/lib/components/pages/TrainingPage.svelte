@@ -34,14 +34,13 @@
     justify-content: flex-end;
     align-items: center;
 
-    margin-top: 100vh;
+    margin-top: 50vh;
 
     height: 80vh;
   }
 
   .popup {
     margin-top: 5rem;
-    height: 80vh;
     width: 90vw;
 
     background: rgba(255, 255, 255, 0.25);
@@ -63,8 +62,8 @@
 
   img {
     width: 100%;
-    max-height: 60vh;
-    object-fit:cover;
+    max-height: 50vh;
+    object-fit: cover;
   }
 
   .popup > div {
@@ -73,5 +72,9 @@
     justify-content: center;
     align-items: center;
     padding: 1rem;
+  }
+
+  p {
+    line-height: 1.5rem;
   }
 </style>
