@@ -1,13 +1,17 @@
 <script lang="ts">
   import AboutPage from "$lib/components/pages/AboutPage.svelte";
+  import ContactPage from "$lib/components/pages/ContactPage.svelte";
   import GalleryPage from "$lib/components/pages/GalleryPage.svelte";
   import TrainingPage from "$lib/components/pages/TrainingPage.svelte";
   import { onMount } from "svelte";
-  import Page from "../lib/components/Page.svelte";
   import FirstPage from "../lib/components/pages/FirstPage.svelte";
 
   let scroll = 0;
   let pageHeight = 0;
+
+  let aboutPlaceholder: HTMLDivElement;
+  let trainingPlaceholder: HTMLDivElement;
+  let galleryPlaceholder: HTMLDivElement;
 
   const onScroll = () => {
     scroll = window.scrollY;
@@ -21,14 +25,20 @@
 <svelte:window on:scroll={onScroll} />
 
 <div class="page">
-  <FirstPage {scroll} {pageHeight} />
-  <Page>
-    <p>Page 2</p>
-  </Page>
-  <AboutPage {scroll} {pageHeight} />
-  <Page />
-  <TrainingPage {scroll} {pageHeight} />
+  <FirstPage
+    {scroll}
+    {pageHeight}
+    {aboutPlaceholder}
+    {trainingPlaceholder}
+    {galleryPlaceholder}
+  />
+  <div bind:this={aboutPlaceholder} />
+  <AboutPage {scroll} offset={pageHeight * 1.5} />
+  <div bind:this={trainingPlaceholder} />
+  <TrainingPage {scroll} offset={pageHeight * 3.5} />
+  <div bind:this={galleryPlaceholder} />
   <GalleryPage />
+  <ContactPage />
 </div>
 
 <style>

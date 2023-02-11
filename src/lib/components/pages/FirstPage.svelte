@@ -1,10 +1,12 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import { fly } from "svelte/transition";
-  import Page from "../Page.svelte";
 
   export let scroll: number;
   export let pageHeight: number;
+  export let aboutPlaceholder: HTMLDivElement;
+  export let trainingPlaceholder: HTMLDivElement;
+  export let galleryPlaceholder: HTMLDivElement;
 
   let firstEle: HTMLDivElement;
   let secondEle: HTMLDivElement;
@@ -67,6 +69,10 @@
     handleScroll(scroll);
   }
 
+  const scrollToSection = (placeholder: HTMLDivElement) => {
+    placeholder.scrollIntoView({ behavior: "smooth" });
+  };
+
   onMount(() => {
     setTimeout(() => {
       showImg = true;
@@ -74,61 +80,72 @@
   });
 </script>
 
-<Page>
-  <div class="top" class:fade>
-    <div id="red" bind:this={firstEle}>
-      {#if showImg}
-        <img
-          transition:fly={{ x: window.innerHeight / 2, y: 0 }}
-          class="first-img"
-          src="./Violin.png"
-          alt=""
-        />
-      {/if}
-      <p class:show={firstVisible}>About</p>
-    </div>
-    <div id="green" bind:this={secondEle}>
-      {#if showImg}
-        <div
-          class="logo"
-          transition:fly={{ x: window.innerHeight / 2, y: 0, delay: 100 }}
-        >
-          <img class="second-img" src="./violin-clipart.jpg" alt="" />
-          <p class="logo-text">RI Chamber Ensemble</p>
-        </div>
-      {/if}
-      <p class:show={secondVisible}>Training</p>
-    </div>
-    <div id="blue" bind:this={thirdEle}>
-      {#if showImg}
-        <img
-          transition:fly={{ x: window.innerHeight / 2, y: 0, delay: 200 }}
-          class="first-img"
-          src="./Violin.png"
-          alt=""
-        />
-      {/if}
-      <p class:show={thirdVisible}>Gallery</p>
-    </div>
+<div class="top" class:fade>
+  <div id="red" bind:this={firstEle} class:back={firstVisible}>
+    {#if showImg}
+      <img
+        transition:fly={{ x: window.innerHeight / 2, y: 0 }}
+        class="first-img"
+        src="./Violin.png"
+        alt=""
+      />
+    {/if}
+    <button
+      class:show={firstVisible}
+      on:click={() => scrollToSection(aboutPlaceholder)}>About</button
+    >
   </div>
-</Page>
+  <div id="green" bind:this={secondEle} class:back={secondVisible}>
+    {#if showImg}
+      <div
+        class="logo"
+        transition:fly={{ x: window.innerHeight / 2, y: 0, delay: 100 }}
+      >
+        <img class="second-img" src="./violin-clipart.jpg" alt="" />
+        <p class="logo-text">RI Chamber Ensemble</p>
+      </div>
+    {/if}
+    <button
+      class:show={secondVisible}
+      on:click={() => scrollToSection(trainingPlaceholder)}>Trainings</button
+    >
+  </div>
+  <div id="blue" bind:this={thirdEle} class:back={thirdVisible}>
+    {#if showImg}
+      <img
+        transition:fly={{ x: window.innerHeight / 2, y: 0, delay: 200 }}
+        class="first-img"
+        src="./Violin.png"
+        alt=""
+      />
+    {/if}
+    <button
+      class:show={thirdVisible}
+      on:click={() => scrollToSection(galleryPlaceholder)}>Gallery</button
+    >
+  </div>
+</div>
 
 <style>
   .top {
     height: 100vh;
-    z-index: -1;
 
     position: relative;
   }
 
   .top.fade > div {
     filter: brightness(75%);
+    z-index: -1;
   }
 
   .top > div {
-    height: 100vh;
-    width: 33%;
+    height: 102vh;
+    width: calc(100% / 3);
     z-index: -1;
+
+    border-radius: 0.5rem;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
 
     display: flex;
     flex-direction: column;
@@ -139,6 +156,10 @@
 
     position: fixed;
     transition: filter 0.3s;
+  }
+
+  .top > div.back {
+    z-index: 10;
   }
 
   .top > div:first-child {
@@ -156,20 +177,20 @@
     right: 0;
   }
 
-  .top > div p {
+  .top > div button {
     position: absolute;
     bottom: 1rem;
 
     color: white;
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
       1px 1px 0 #000;
-    font-size: 1.5rem;
+    font-size: 2.5rem;
     opacity: 0;
 
     transition: 0.5s;
   }
 
-  .top > div p.show {
+  .top > div button.show {
     opacity: 1;
   }
 
@@ -180,6 +201,13 @@
   .second-img {
     max-width: 300px;
     border-radius: 50%;
+  }
+
+  .logo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 
   .logo .logo-text {

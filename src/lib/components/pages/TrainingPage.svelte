@@ -1,32 +1,44 @@
 <script lang="ts">
-  import { fly, scale } from "svelte/transition";
-  import Page from "../Page.svelte";
+  import { fade, fly, scale, slide } from "svelte/transition";
 
   export let scroll: number;
-  export let pageHeight: number;
-
-  let offset = pageHeight * 3.5;
+  export let offset: number;
 </script>
 
-<Page>
+<div class="section">
   {#if scroll > offset}
-    <div class="popup" transition:scale>
-      <p>
-        Every Wednesday morning, from 7.45 to 10.45am, a handful of individuals
-        convene at the Indoor Sports Hall for CCA. However, they do not belong
-        to a sports CCA: the only exercise they get is carrying their
-        instruments to school and playing them during CCA. What kind of bizarre,
-        eccentric CCA is this? This is, of course, Chamber Ensemble! Our CCA is
-        housed in the humble (and perhaps small) Chamber Room located in a
-        corner of the ISH. Despite its modest size, the Chamber Room is home to
-        the memories of generations of musicians. Our conductor, Mr Lin, was
-        also once a starry-eyed student at the Chamber Ensemble.
-      </p>
+    <div class="popup" transition:fade>
+      <img src="./placeholder.png" alt="" />
+      <div>
+        <p>
+          Every Wednesday morning, from 7.45 to 10.45am, a handful of
+          individuals convene at the Indoor Sports Hall for CCA. However, they
+          do not belong to a sports CCA: the only exercise they get is carrying
+          their instruments to school and playing them during CCA. What kind of
+          bizarre, eccentric CCA is this? This is, of course, Chamber Ensemble!
+          Our CCA is housed in the humble (and perhaps small) Chamber Room
+          located in a corner of the ISH. Despite its modest size, the Chamber
+          Room is home to the memories of generations of musicians. Our
+          conductor, Mr Lin, was also once a starry-eyed student at the Chamber
+          Ensemble.
+        </p>
+      </div>
     </div>
   {/if}
-</Page>
+</div>
 
 <style>
+  .section {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+
+    margin-top: 100vh;
+
+    height: 80vh;
+  }
+
   .popup {
     margin-top: 5rem;
     height: 80vh;
@@ -39,9 +51,27 @@
     border-radius: 10px;
     border: 1px solid rgba(255, 255, 255, 0.18);
 
-    padding: 1rem;
-
     color: white;
     font-size: 1.2rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    overflow: hidden;
+  }
+
+  img {
+    width: 100%;
+    max-height: 60vh;
+    object-fit:cover;
+  }
+
+  .popup > div {
+    flex: 1 1 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
   }
 </style>

@@ -1,18 +1,17 @@
 <script>
+  import ImageContainer from "../ImageContainer.svelte";
   import Page from "../Page.svelte";
 </script>
 
 <div class="page">
   <h2>Gallery</h2>
   <div class="mediaContainer">
-    <img src="./cat.png" alt="" />
-    <img src="./cat.png" alt="" />
-    <img src="./cat.png" alt="" />
-    <img src="./cat.png" alt="" />
-    <img src="./cat.png" alt="" />
-    <img src="./cat.png" alt="" />
-    <img src="./cat.png" alt="" />
-    <img src="./cat.png" alt="" />
+    <ImageContainer path={"./cat.png"} description={"Test"} />
+    <ImageContainer path={"./cat.png"} description={"Test"} />
+    <ImageContainer path={"./cat.png"} description={"Test"} />
+    <ImageContainer path={"./cat.png"} description={"Test"} />
+    <ImageContainer path={"./cat.png"} description={"Test"} />
+    <ImageContainer path={"./cat.png"} description={"Test"} />
   </div>
 </div>
 
@@ -23,6 +22,9 @@
     justify-content: flex-start;
     align-items: center;
     flex-direction: column;
+    margin-top: 25vh;
+
+    padding: 10vh;
   }
   h2 {
     padding-top: 10rem;
@@ -33,8 +35,7 @@
     gap: 1rem;
   }
 
-  img {
-    width: 400px;
-    object-fit: fill;
+  .mediaContainer > :global(div) {
+    width: 600px;
   }
 </style>
